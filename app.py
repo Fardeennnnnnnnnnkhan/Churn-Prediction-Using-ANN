@@ -7,7 +7,7 @@ import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 
 # Load the trained model
-model = tf.keras.models.load_model('ann_model.h5')
+model = tf.keras.models.load_model('model.h5')
 
 # Load the encoders and scaler
 with open('label_encoder_gender.pkl', 'rb') as file:
@@ -38,7 +38,7 @@ is_active_member = st.selectbox('Is Active Member' , [0 , 1])
 #Prepare the Input Data
 input_data = pd.DataFrame({
     'CreditScore': [creditscore],
-    'Gender':[label_encoder_gender.transform(['gender'])[0]],
+    'Gender':[label_encoder_gender.transform([gender])[0]],
     'Age':[age],
     'Tenure':[tenure],
     'Balance':[balance],
@@ -49,7 +49,7 @@ input_data = pd.DataFrame({
 })
 
 #One Hot Encode 'Geography'
-geo_encoder = one_hot_encoder_geo.transform([[Geography]]).toarray()
+geo_encoder = one_hot_encoder_geo.transform([[geography]]).toarray()
 geo_encoded_df = pd.DataFrame(geo_encoder,columns = one_hot_encoder_geo.get_feature_names_out(['Geography']))
 
 #Combine Input Data with Encoded Geography
